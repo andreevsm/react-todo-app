@@ -1,0 +1,20 @@
+.list-group-item {
+  padding: .25rem .75rem;
+}
+
+.buttons-block {
+  margin: 5px;
+}
+
+.buttons-block-btn {
+  margin-right: 5px;
+}
+
+.done {
+  text-decoration: line-through;
+}
+
+.important {
+  color: steelblue;
+  font-weight: bold;
+}
