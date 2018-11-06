@@ -1,6 +1,6 @@
 import React from 'react';
 
-import './styles.css'
+import './styles.css';
 
 const TodoListItem = ({
   label,
@@ -27,14 +27,14 @@ const TodoListItem = ({
       </div>
       <div className="buttons-block">
         <button onClick={onDeleted} type="button" className="btn btn-outline-danger buttons-block-btn">
-          <i className="fa fa-trash"></i>
+          <i className="fa fa-trash" />
         </button>
         <button onClick={onToggleImportant} type="button" className="btn btn-outline-success">
-          <i className="fa fa-exclamation"></i>
+          <i className="fa fa-exclamation" />
         </button>
       </div>
     </React.Fragment>
-  )
-}
+  );
+};
 
 export default TodoListItem;

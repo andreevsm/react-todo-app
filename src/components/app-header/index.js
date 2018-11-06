@@ -4,7 +4,12 @@ const AppHeader = ({
   toDo,
   done,
 }) => (
-  <h1>My todo list {toDo} {done}</h1>
+  <h1>
+My todo list
+    {toDo}
+    {' '}
+    {done}
+  </h1>
 );
 
 export default AppHeader;

@@ -9,7 +9,7 @@ const TodoList = ({
   onToggleImportant,
   onToggleDone,
 }) => {
-  console.log(todos)
+  console.log(todos);
   return (
     <ul className="list-group todo-list">
       {todos.map((item, index) => {
@@ -23,9 +23,8 @@ const TodoList = ({
               {...itemProps}
             />
           </li>
-        )
-      }
-      )}
+        );
+      })}
     </ul>
   );
 };

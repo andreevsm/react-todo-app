@@ -10,7 +10,6 @@ const ItemStatusFilter = ({
   filter,
   onFilterChange,
 }) => {
-
   const buttons = BUTTONS.map(({ name, label }, index) => {
     const isActive = filter === name;
     const ButtonClassNames = isActive ? 'btn-info' : 'btn-outline-secondary';
@@ -26,6 +25,6 @@ const ItemStatusFilter = ({
       {buttons}
     </div>
   );
-}
+};
 
 export default ItemStatusFilter;
