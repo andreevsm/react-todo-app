@@ -6,7 +6,7 @@ const Header = ({
   done,
 }) => (
   <h1>
-My todo list
+    My todo list
     {toDo}
     {' '}
     {done}
