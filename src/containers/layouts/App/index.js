@@ -6,7 +6,7 @@ import TodoList from 'containers/blocks/TodoList';
 import SearchPanel from 'containers/blocks/SearchPanel';
 import TodoStatusFilter from 'containers/blocks/TodoStatusFilter';
 
-import ItemAddForm from 'containers/forms/TodoAddForm';
+import TodoAddFrom from 'containers/forms/TodoAddForm';
 
 import './styles.css';
 
@@ -67,18 +67,14 @@ export default class App extends Component {
   }
 
   createTodo = (label) => {
-    this.setState(({ todos }) => {
-      const oldTodos = todos;
-      const newId = oldTodos.length += 1;
-      return {
-        todos: [...todos, {
-          label,
-          important: false,
-          done: false,
-          id: newId,
-        }],
-      };
-    });
+    this.setState(({ todos }) => ({
+      todos: [...todos, {
+        label,
+        important: false,
+        done: false,
+        id: todos.length + 1,
+      }],
+    }));
   }
 
   onToggleImportant = (id) => {
@@ -137,7 +133,7 @@ export default class App extends Component {
           onToggleImportant={id => this.onToggleImportant(id)}
           onToggleDone={id => this.onToggleDone(id)}
         />
-        <ItemAddForm onCreateTodo={label => this.createTodo(label)} />
+        <TodoAddFrom onCreateTodo={label => this.createTodo(label)} />
       </div>
     );
   }

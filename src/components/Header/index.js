@@ -13,9 +13,9 @@ My todo list
   </h1>
 );
 
-Header.PropTypes = {
-  toDo: PropTypes.number,
-  done: PropTypes.number,
+Header.propTypes = {
+  toDo: PropTypes.number.isRequired,
+  done: PropTypes.number.isRequired,
 };
 
 export default Header;

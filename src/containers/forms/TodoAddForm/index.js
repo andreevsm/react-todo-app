@@ -2,7 +2,7 @@ import React from 'react';
 
 import './styles.css';
 
-export default class ItemAddForm extends React.Component {
+export default class TodoAddFrom extends React.Component {
   state = {
     label: '',
   };
@@ -35,7 +35,7 @@ export default class ItemAddForm extends React.Component {
           placeholder="What needs to be done?"
           value={label}
         />
-        <button type="button" className="btn btn-outline-secondary">
+        <button type="submit" className="btn btn-outline-secondary">
           Add item
         </button>
       </form>
