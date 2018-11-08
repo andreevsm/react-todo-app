@@ -1,6 +1,7 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
-const AppHeader = ({
+const Header = ({
   toDo,
   done,
 }) => (
@@ -12,4 +13,9 @@ My todo list
   </h1>
 );
 
-export default AppHeader;
+Header.PropTypes = {
+  toDo: PropTypes.number,
+  done: PropTypes.number,
+};
+
+export default Header;

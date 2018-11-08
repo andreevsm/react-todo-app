@@ -22,7 +22,7 @@ const TodoListItem = ({
 
   return (
     <React.Fragment>
-      <div className={classNames} onClick={onToggleDone}>
+      <div className={classNames} onClick={onToggleDone} onKeyPress={onToggleDone}>
         {label}
       </div>
       <div className="buttons-block">

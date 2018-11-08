@@ -3,7 +3,6 @@ import React from 'react';
 import './styles.css';
 
 export default class ItemAddForm extends React.Component {
-
   state = {
     label: '',
   };
@@ -16,13 +15,17 @@ export default class ItemAddForm extends React.Component {
 
   onSubmit = (event) => {
     event.preventDefault();
-    this.props.onCreateTodo(this.state.label);
+    const { onCreateTodo } = this.props;
+    const { label } = this.state;
+    onCreateTodo(label);
     this.setState({
       label: '',
     });
   }
 
-  render () {
+  render() {
+    const { label } = this.state;
+
     return (
       <form onSubmit={this.onSubmit} className="item-add-form input-group d-flex">
         <input
@@ -30,15 +33,12 @@ export default class ItemAddForm extends React.Component {
           type="text"
           onChange={this.onLabelChange}
           placeholder="What needs to be done?"
-          value={this.state.label}
+          value={label}
         />
-        <button
-          
-          className="btn btn-outline-secondary"
-        >
+        <button type="button" className="btn btn-outline-secondary">
           Add item
         </button>
       </form>
-    )
+    );
   }
 }

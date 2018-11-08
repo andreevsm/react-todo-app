@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import AppHeader from 'components/Header';
+import Header from 'components/Header';
 
 import TodoList from 'containers/blocks/TodoList';
 import SearchPanel from 'containers/blocks/SearchPanel';
@@ -11,7 +11,6 @@ import ItemAddForm from 'containers/forms/TodoAddForm';
 import './styles.css';
 
 export default class App extends Component {
-
   state = {
     todos: [
       {
@@ -37,35 +36,13 @@ export default class App extends Component {
         label: 'Fix bugs',
         done: false,
         important: false,
-      }
+      },
     ],
     text: '',
     filter: 'active',
   }
 
-  deleteItem = (id) => {
-    this.setState(({ todos }) => {
-      const newTodos = todos.filter(todo => todo.id !== id)
-      return {
-        todos: newTodos,
-      }
-    })
-  }
-
-  createTodo = (label) => {
-    this.setState(({ todos }) => {
-      return {
-        todos: [...todos, {
-          label,
-          important: false,
-          done: false,
-          id: todos.length += 1,
-        }],
-      }
-    })
-  }
-
-  toggleProperty (array, id, propName) {
+  toggleProperty = (array, id, propName) => {
     const idx = array.findIndex(el => el.id === id);
     const oldItem = array[idx];
     const newItem = {
@@ -76,24 +53,44 @@ export default class App extends Component {
     return [
       ...array.slice(0, idx),
       newItem,
-      ...array.slice(idx + 1)
+      ...array.slice(idx + 1),
     ];
   }
 
-  onToggleImportant = (id) => {
+  deleteItem = (id) => {
     this.setState(({ todos }) => {
+      const newTodos = todos.filter(todo => todo.id !== id);
       return {
-        todos: this.toggleProperty(todos, id, 'important')
-      }
-    })
+        todos: newTodos,
+      };
+    });
+  }
+
+  createTodo = (label) => {
+    this.setState(({ todos }) => {
+      const oldTodos = todos;
+      const newId = oldTodos.length += 1;
+      return {
+        todos: [...todos, {
+          label,
+          important: false,
+          done: false,
+          id: newId,
+        }],
+      };
+    });
+  }
+
+  onToggleImportant = (id) => {
+    this.setState(({ todos }) => ({
+      todos: this.toggleProperty(todos, id, 'important'),
+    }));
   }
 
   onToggleDone = (id) => {
-    this.setState(({ todos }) => {
-      return {
-        todos: this.toggleProperty(todos, id, 'done')
-      }
-    })
+    this.setState(({ todos }) => ({
+      todos: this.toggleProperty(todos, id, 'done'),
+    }));
   }
 
   onSearchPanel = (text) => {
@@ -105,7 +102,7 @@ export default class App extends Component {
     return array.filter(item => item.label.toLowerCase().indexOf(text) > -1);
   }
 
-  filter (array, filter) {
+  filter = (array, filter) => {
     switch (filter) {
       case 'all': return array;
       case 'active': return array.filter(item => !item.done);
@@ -128,20 +125,20 @@ export default class App extends Component {
 
     return (
       <div className="root">
-        <AppHeader toDo={todoCount} done={doneCount} />
-        <SearchPanel onSearchTodos={(text) => this.onSearchPanel(text)} />
+        <Header toDo={todoCount} done={doneCount} />
+        <SearchPanel onSearchTodos={text => this.onSearchPanel(text)} />
         <TodoStatusFilter
           filter={filter}
-          onFilterChange={(filter) => this.onFilterChange(filter)}
+          onFilterChange={filter => this.onFilterChange(filter)}
         />
         <TodoList
           todos={visibleTodos}
-          onDeleted={(id) => this.deleteItem(id)}
-          onToggleImportant={(id) => this.onToggleImportant(id)}
-          onToggleDone={(id) => this.onToggleDone(id)}
+          onDeleted={id => this.deleteItem(id)}
+          onToggleImportant={id => this.onToggleImportant(id)}
+          onToggleDone={id => this.onToggleDone(id)}
         />
-        <ItemAddForm onCreateTodo={(label) => this.createTodo(label)} />
+        <ItemAddForm onCreateTodo={label => this.createTodo(label)} />
       </div>
-    )
+    );
   }
 }
