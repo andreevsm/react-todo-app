@@ -10,6 +10,7 @@ import TodoAddFrom from 'containers/forms/TodoAddForm';
 
 import './styles.css';
 
+
 export default class App extends Component {
   state = {
     todos: [
@@ -40,7 +41,7 @@ export default class App extends Component {
     ],
     text: '',
     filter: 'active',
-  }
+  };
 
   toggleProperty = (array, id, propName) => {
     const idx = array.findIndex(el => el.id === id);
@@ -55,7 +56,7 @@ export default class App extends Component {
       newItem,
       ...array.slice(idx + 1),
     ];
-  }
+  };
 
   deleteItem = (id) => {
     this.setState(({ todos }) => {
@@ -64,7 +65,7 @@ export default class App extends Component {
         todos: newTodos,
       };
     });
-  }
+  };
 
   createTodo = (label) => {
     this.setState(({ todos }) => ({
@@ -75,43 +76,48 @@ export default class App extends Component {
         id: todos.length + 1,
       }],
     }));
-  }
+  };
 
   onToggleImportant = (id) => {
     this.setState(({ todos }) => ({
       todos: this.toggleProperty(todos, id, 'important'),
     }));
-  }
+  };
 
   onToggleDone = (id) => {
     this.setState(({ todos }) => ({
       todos: this.toggleProperty(todos, id, 'done'),
     }));
-  }
+  };
 
   onSearchPanel = (text) => {
     this.setState({ text });
-  }
+  };
 
   searchTodos = (array, text) => {
     if (text.length === 0) return array;
-    return array.filter(item => item.label.toLowerCase().indexOf(text) > -1);
-  }
+    return array.filter(item => item.label.toLowerCase()
+      .indexOf(text) > -1);
+  };
 
   filter = (array, filter) => {
     switch (filter) {
-      case 'all': return array;
-      case 'active': return array.filter(item => !item.done);
-      case 'done': return array.filter(item => item.done);
-      default: return array;
+      case 'all':
+        return array;
+      case 'active':
+        return array.filter(item => !item.done);
+      case 'done':
+        return array.filter(item => item.done);
+      default:
+        return array;
     }
-  }
+  };
 
   onFilterChange = (filter) => {
     this.setState({
       filter,
     });
-  }
+  };
 
   render() {
     const { todos, text, filter } = this.state;
@@ -122,11 +128,17 @@ export default class App extends Component {
     return (
       <div className="root">
         <Header toDo={todoCount} done={doneCount} />
-        <SearchPanel onSearchTodos={text => this.onSearchPanel(text)} />
-        <TodoStatusFilter
-          filter={filter}
-          onFilterChange={filter => this.onFilterChange(filter)}
-        />
+        <nav className="navbar navbar-light bg-light mb-3">
+          <div className="navbar-brand">
+            <SearchPanel onSearchTodos={text => this.onSearchPanel(text)} />
+          </div>
+          <div className="navbar-item">
+            <TodoStatusFilter
+              filter={filter}
+              onFilterChange={filter => this.onFilterChange(filter)}
+            />
+          </div>
+        </nav>
         <TodoList
           todos={visibleTodos}
           onDeleted={id => this.deleteItem(id)}

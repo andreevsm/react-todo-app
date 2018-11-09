@@ -35,8 +35,8 @@ export default class TodoAddFrom extends React.Component {
           placeholder="What needs to be done?"
           value={label}
         />
-        <button type="submit" className="btn btn-outline-secondary">
-          Add item
+        <button type="submit" className="btn btn-outline-secondary ml-1">
+          Add Todo
         </button>
       </form>
     );
