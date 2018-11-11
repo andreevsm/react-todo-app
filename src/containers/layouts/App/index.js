@@ -10,7 +10,6 @@ import TodoAddFrom from 'containers/forms/TodoAddForm';
 
 import './styles.css';
 
-
 export default class App extends Component {
   state = {
     todos: [
