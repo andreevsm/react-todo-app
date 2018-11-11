@@ -1,10 +1,13 @@
 import { combineReducers } from 'redux';
 
-function products(state = {
-  isFetching: false,
-  didInvalidate: false,
-  items: [],
-}, action) {
+function todoList(
+  state = {
+    isFetching: false,
+    didInvalidate: false,
+    items: [],
+  },
+  action,
+) {
   switch (action.type) {
     case 'REQUEST_PRODUCTS':
       return Object.assign({}, state, {
@@ -36,7 +39,7 @@ function specialPosts(state = { }, action) {
 }
 
 const rootReducer = combineReducers({
-  products,
+  todoList,
   specialPosts,
 });
 

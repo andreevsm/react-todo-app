@@ -1,6 +1,7 @@
 import React from 'react';
 
 import './styles.css';
+import { addTodo } from 'redux/data/todoList';
 
 export default class TodoAddFrom extends React.Component {
   state = {
@@ -15,9 +16,10 @@ export default class TodoAddFrom extends React.Component {
 
   onSubmit = (event) => {
     event.preventDefault();
-    const { onCreateTodo } = this.props;
+    const { onCreateTodo, dispatch } = this.props;
     const { label } = this.state;
     onCreateTodo(label);
+    dispatch(addTodo(label));
     this.setState({
       label: '',
     });

@@ -8,6 +8,7 @@ export function configureStore(initialState, cookies) {
     rootReducer,
     compose(
       applyMiddleware(thunk.withExtraArgument({ cookies })),
+      window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
     ),
   );
   return store;

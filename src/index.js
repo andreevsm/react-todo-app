@@ -7,7 +7,6 @@ import App from 'containers/layouts/App';
 
 const store = configureStore();
 
-
 ReactDOM.render(
   <Provider store={store}>
     <App />
