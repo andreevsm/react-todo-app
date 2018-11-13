@@ -1,43 +1,19 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
 import Header from 'components/Header';
 
 import TodoList from 'containers/blocks/TodoList';
 import SearchPanel from 'containers/blocks/SearchPanel';
 import TodoStatusFilter from 'containers/blocks/TodoStatusFilter';
-
 import TodoAddFrom from 'containers/forms/TodoAddForm';
+
+import { addTodo } from 'redux/data/todoList';
 
 import './styles.css';
 
-export default class App extends Component {
+class App extends Component {
   state = {
-    todos: [
-      {
-        id: 1,
-        label: 'Learn React',
-        important: false,
-        done: false,
-      },
-      {
-        id: 2,
-        label: 'Build Awesome App',
-        important: true,
-        done: true,
-      },
-      {
-        id: 3,
-        label: 'Clean up room',
-        important: true,
-        done: false,
-      },
-      {
-        id: 4,
-        label: 'Fix bugs',
-        done: false,
-        important: false,
-      },
-    ],
     text: '',
     filter: 'active',
   };
@@ -119,10 +95,14 @@ export default class App extends Component {
   };
 
   render() {
-    const { todos, text, filter } = this.state;
-    const doneCount = todos.filter(todo => todo.done).length;
-    const todoCount = todos.length - doneCount;
-    const visibleTodos = this.filter(this.searchTodos(todos, text), filter);
+    const { text, filter } = this.state;
+    const {
+      todoList,
+      onAddTodoAction,
+    } = this.props;
+    const doneCount = todoList.filter(todo => todo.done).length;
+    const todoCount = todoList.length - doneCount;
+    const visibleTodos = this.filter(this.searchTodos(todoList, text), filter);
 
     return (
       <div className="root">
@@ -139,13 +119,25 @@ export default class App extends Component {
           </div>
         </nav>
         <TodoList
-          todos={visibleTodos}
+          items={visibleTodos}
           onDeleted={id => this.deleteItem(id)}
           onToggleImportant={id => this.onToggleImportant(id)}
           onToggleDone={id => this.onToggleDone(id)}
         />
-        <TodoAddFrom onCreateTodo={label => this.createTodo(label)} />
+        <TodoAddFrom onCreateTodo={label => onAddTodoAction(label)} />
       </div>
     );
   }
 }
+
+const mapStateToProps = ({ data: { todoList } }) => ({ todoList });
+const mapDispatchToProps = dispatch => ({
+  onAddTodoAction(text) {
+    dispatch(addTodo(text));
+  },
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(App);

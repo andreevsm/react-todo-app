@@ -1,4 +1,4 @@
-import { handleActions } from 'redux-actions';
+import { handleActions, createAction } from 'redux-actions';
 
 const initialState = [
   {
@@ -27,29 +27,18 @@ const initialState = [
   },
 ];
 
-export const addTodo = text => ({
-  type: 'ADD_TODO',
-  text,
-});
-
-export const setVisibilityFilter = filter => ({
-  type: 'SET_VISIBILITY_FILTER',
-  filter,
-});
-
-export const toggleTodo = id => ({
-  type: 'TOGGLE_TODO',
-  id,
-});
-
-export const VisibilityFilters = {
-  SHOW_ALL: 'SHOW_ALL',
-  SHOW_COMPLETED: 'SHOW_COMPLETED',
-  SHOW_ACTIVE: 'SHOW_ACTIVE',
-};
+export const addTodo = createAction('todoList/ADD_TODO');
 
 export default handleActions({
-  'todoList/ADD_TODO': (state, action) => action.payload,
+  'todoList/ADD_TODO': (state, action) => [
+    ...state,
+    {
+      id: state.length + 1,
+      label: action.payload,
+      done: false,
+      important: false,
+    },
+  ],
   'todoList/REMOVE_TODO': (state, action) => action.payload,
   'todoList/EDIT_TODO': (state, action) => action.payload,
 }, initialState);
