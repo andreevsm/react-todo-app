@@ -8,7 +8,7 @@ import SearchPanel from 'containers/blocks/SearchPanel';
 import TodoStatusFilter from 'containers/blocks/TodoStatusFilter';
 import TodoAddFrom from 'containers/forms/TodoAddForm';
 
-import { addTodo } from 'redux/data/todoList';
+import { addTodo, deleteTodo } from 'redux/data/todoList';
 
 import './styles.css';
 
@@ -31,26 +31,6 @@ class App extends Component {
       newItem,
       ...array.slice(idx + 1),
     ];
-  };
-
-  deleteItem = (id) => {
-    this.setState(({ todos }) => {
-      const newTodos = todos.filter(todo => todo.id !== id);
-      return {
-        todos: newTodos,
-      };
-    });
-  };
-
-  createTodo = (label) => {
-    this.setState(({ todos }) => ({
-      todos: [...todos, {
-        label,
-        important: false,
-        done: false,
-        id: todos.length + 1,
-      }],
-    }));
   };
 
   onToggleImportant = (id) => {
@@ -99,6 +79,7 @@ class App extends Component {
     const {
       todoList,
       onAddTodoAction,
+      onDeleteTodoAction,
     } = this.props;
     const doneCount = todoList.filter(todo => todo.done).length;
     const todoCount = todoList.length - doneCount;
@@ -120,7 +101,7 @@ class App extends Component {
         </nav>
         <TodoList
           items={visibleTodos}
-          onDeleted={id => this.deleteItem(id)}
+          onDeleted={id => onDeleteTodoAction(id)}
           onToggleImportant={id => this.onToggleImportant(id)}
           onToggleDone={id => this.onToggleDone(id)}
         />
@@ -134,6 +115,9 @@ const mapStateToProps = ({ data: { todoList } }) => ({ todoList });
 const mapDispatchToProps = dispatch => ({
   onAddTodoAction(text) {
     dispatch(addTodo(text));
+  },
+  onDeleteTodoAction(id) {
+    dispatch(deleteTodo(id));
   },
 });
 

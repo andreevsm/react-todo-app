@@ -28,6 +28,7 @@ const initialState = [
 ];
 
 export const addTodo = createAction('todoList/ADD_TODO');
+export const deleteTodo = createAction('todoList/REMOVE_TODO');
 
 export default handleActions({
   'todoList/ADD_TODO': (state, action) => [
@@ -39,6 +40,6 @@ export default handleActions({
       important: false,
     },
   ],
-  'todoList/REMOVE_TODO': (state, action) => action.payload,
+  'todoList/REMOVE_TODO': (state, action) => state.filter(todo => todo.id !== action.payload),
   'todoList/EDIT_TODO': (state, action) => action.payload,
 }, initialState);
