@@ -92,6 +92,7 @@ class App extends Component {
 }
 
 const mapStateToProps = ({ data: { todoList } }) => ({ todoList });
+
 const mapDispatchToProps = dispatch => ({
   onAddTodoAction(text) {
     dispatch(addTodo(text));

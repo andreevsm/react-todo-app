@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const BUTTONS = [
   { id: 1, name: 'active', label: 'Active' },
@@ -25,6 +26,11 @@ const ItemStatusFilter = ({
       {buttons}
     </div>
   );
+};
+
+ItemStatusFilter.propTypes = {
+  filter: PropTypes.string.isRequired,
+  onFilterChange: PropTypes.func.isRequired,
 };
 
 export default ItemStatusFilter;
