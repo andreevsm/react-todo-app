@@ -12,6 +12,7 @@ import {
   addTodo,
   deleteTodo,
   toggleImportantTodo,
+  toggleDoneTodo,
 } from 'redux/data/todoList';
 
 import './styles.css';
@@ -20,27 +21,6 @@ class App extends Component {
   state = {
     text: '',
     filter: 'active',
-  };
-
-  toggleProperty = (array, id, propName) => {
-    const idx = array.findIndex(el => el.id === id);
-    const oldItem = array[idx];
-    const newItem = {
-      ...oldItem,
-      [propName]: !oldItem[propName],
-    };
-
-    return [
-      ...array.slice(0, idx),
-      newItem,
-      ...array.slice(idx + 1),
-    ];
-  };
-
-  onToggleDone = (id) => {
-    this.setState(({ todos }) => ({
-      todos: this.toggleProperty(todos, id, 'done'),
-    }));
   };
 
   onSearchPanel = (text) => {
@@ -79,6 +59,7 @@ class App extends Component {
       onAddTodoAction,
       onDeleteTodoAction,
       onToggleImportantTodo,
+      onToggleDoneAction,
     } = this.props;
     const doneCount = todoList.filter(todo => todo.done).length;
     const todoCount = todoList.length - doneCount;
@@ -102,7 +83,7 @@ class App extends Component {
           items={visibleTodos}
           onDeleted={id => onDeleteTodoAction(id)}
           onToggleImportant={id => onToggleImportantTodo(id)}
-          onToggleDone={id => this.onToggleDone(id)}
+          onToggleDone={id => onToggleDoneAction(id)}
         />
         <TodoAddFrom onCreateTodo={label => onAddTodoAction(label)} />
       </div>
@@ -120,6 +101,9 @@ const mapDispatchToProps = dispatch => ({
   },
   onToggleImportantTodo(id) {
     dispatch(toggleImportantTodo(id));
+  },
+  onToggleDoneAction(id) {
+    dispatch(toggleDoneTodo(id));
   },
 });
 
