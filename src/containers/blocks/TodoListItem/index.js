@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import './styles.css';
 
@@ -35,6 +36,15 @@ const TodoListItem = ({
       </div>
     </React.Fragment>
   );
+};
+
+TodoListItem.propTypes = {
+  label: PropTypes.string.isRequired,
+  onDeleted: PropTypes.func.isRequired,
+  onToggleDone: PropTypes.func.isRequired,
+  onToggleImportant: PropTypes.func.isRequired,
+  important: PropTypes.bool.isRequired,
+  done: PropTypes.bool.isRequired,
 };
 
 export default TodoListItem;
