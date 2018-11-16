@@ -1,26 +1,27 @@
 import { handleActions, createAction } from 'redux-actions';
+import uid from 'uid';
 
 const initialState = [
   {
-    id: 1,
+    id: uid(),
     label: 'Learn React',
     important: false,
     done: false,
   },
   {
-    id: 2,
+    id: uid(),
     label: 'Build an Awesome App',
     important: true,
     done: true,
   },
   {
-    id: 3,
+    id: uid(),
     label: 'Clean up room',
     important: true,
     done: false,
   },
   {
-    id: 4,
+    id: uid(),
     label: 'Fix bugs',
     done: false,
     important: false,
@@ -36,7 +37,7 @@ export default handleActions({
   'todoList/ADD_TODO': (state, action) => [
     ...state,
     {
-      id: state.length + 1,
+      id: uid(),
       label: action.payload,
       done: false,
       important: false,
