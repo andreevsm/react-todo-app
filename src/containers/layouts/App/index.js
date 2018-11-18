@@ -20,7 +20,7 @@ import './styles.css';
 class App extends Component {
   state = {
     text: '',
-    filter: 'active',
+    filter: 'all',
   };
 
   onSearchPanel = (text) => {
