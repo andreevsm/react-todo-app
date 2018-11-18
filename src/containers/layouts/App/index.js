@@ -8,12 +8,7 @@ import SearchPanel from 'containers/blocks/SearchPanel';
 import TodoStatusFilter from 'containers/blocks/TodoStatusFilter';
 import TodoAddFrom from 'containers/forms/TodoAddForm';
 
-import {
-  addTodo,
-  deleteTodo,
-  toggleImportantTodo,
-  toggleDoneTodo,
-} from 'redux/data/todoList';
+import { addTodo } from 'redux/data/todoList';
 
 import './styles.css';
 
@@ -79,12 +74,7 @@ class App extends Component {
             />
           </div>
         </nav>
-        <TodoList
-          items={visibleTodos}
-          onDeleted={id => onDeleteTodoAction(id)}
-          onToggleImportant={id => onToggleImportantTodo(id)}
-          onToggleDone={id => onToggleDoneAction(id)}
-        />
+        <TodoList items={visibleTodos} />
         <TodoAddFrom onCreateTodo={label => onAddTodoAction(label)} />
       </div>
     );
@@ -96,15 +86,6 @@ const mapStateToProps = ({ data: { todoList } }) => ({ todoList });
 const mapDispatchToProps = dispatch => ({
   onAddTodoAction(text) {
     dispatch(addTodo(text));
-  },
-  onDeleteTodoAction(id) {
-    dispatch(deleteTodo(id));
-  },
-  onToggleImportantTodo(id) {
-    dispatch(toggleImportantTodo(id));
-  },
-  onToggleDoneAction(id) {
-    dispatch(toggleDoneTodo(id));
   },
 });
 

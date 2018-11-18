@@ -1,13 +1,12 @@
 import React from 'react';
 
-import { withData } from 'HOC';
 import Item from '../Item';
 
 const ItemList = ({
   items,
-  onDeleted,
-  onToggleImportant,
-  onToggleDone,
+  onDeleteTodoAction,
+  onToggleImportantTodo,
+  onToggleDoneAction,
 }) => (
   <ul className="list-group todo-list">
     {items.map((item) => {
@@ -15,9 +14,9 @@ const ItemList = ({
       return (
         <li key={id} className="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
           <Item
-            onDeleted={() => onDeleted(id)}
-            onToggleDone={() => onToggleDone(id)}
-            onToggleImportant={() => onToggleImportant(id)}
+            onDeleted={() => onDeleteTodoAction(id)}
+            onToggleDone={() => onToggleDoneAction(id)}
+            onToggleImportant={() => onToggleImportantTodo(id)}
             {...itemProps}
           />
         </li>
@@ -26,4 +25,4 @@ const ItemList = ({
   </ul>
 );
 
-export default withData(ItemList);
+export default ItemList;
