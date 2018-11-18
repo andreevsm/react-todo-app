@@ -11,7 +11,8 @@
     "redux": "^4.0.1",
     "redux-actions": "^2.6.4",
     "redux-persist": "^5.10.0",
-    "redux-thunk": "^2.3.0"
+    "redux-thunk": "^2.3.0",
+    "uid": "0.0.2"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -42,10 +43,5 @@
   "lint-staged": {
     "*.js": "eslint src",
     "*.@(scss|css)": "stylelint"
-  },
-  "config": {
-    "ghooks": {
-      "pre-commit": "npm run hooks:commit"
-    }
   }
 }
