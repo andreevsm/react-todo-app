@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { compose } from 'recompose';
 
 import Header from 'components/Header';
 
@@ -52,9 +53,6 @@ class App extends Component {
     const {
       todoList,
       onAddTodoAction,
-      onDeleteTodoAction,
-      onToggleImportantTodo,
-      onToggleDoneAction,
     } = this.props;
     const doneCount = todoList.filter(todo => todo.done).length;
     const todoCount = todoList.length - doneCount;
@@ -89,7 +87,9 @@ const mapDispatchToProps = dispatch => ({
   },
 });
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
+export default compose(
+  connect(
+    mapStateToProps,
+    mapDispatchToProps,
+  ),
 )(App);
