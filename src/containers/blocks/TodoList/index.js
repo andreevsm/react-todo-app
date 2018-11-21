@@ -1,4 +1,5 @@
 import { connect } from 'react-redux';
+import { compose, pure, setDisplayName } from 'recompose';
 
 import { withData } from 'HOC';
 
@@ -11,21 +12,16 @@ import {
 } from 'redux/data/todoList';
 
 const TodoList = withData(ItemList);
-const mapStateToProps = ({ data: { todoList } }) => ({ todoList });
 
-const mapDispatchToProps = dispatch => ({
-  onDeleteTodoAction(id) {
-    dispatch(deleteTodo(id));
-  },
-  onToggleImportantTodo(id) {
-    dispatch(toggleImportantTodo(id));
-  },
-  onToggleDoneAction(id) {
-    dispatch(toggleDoneTodo(id));
-  },
-});
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
+export default compose(
+  setDisplayName('TodoList'),
+  pure,
+  connect(
+    ({ data: { todoList } }) => ({ todoList }),
+    {
+      onDeleteTodoAction: id => deleteTodo(id),
+      onToggleImportantTodo: id => toggleImportantTodo(id),
+      onToggleDoneAction: id => toggleDoneTodo(id),
+    },
+  ),
 )(TodoList);
