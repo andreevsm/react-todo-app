@@ -1,6 +1,11 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
-import { compose } from 'recompose';
+import {
+  compose,
+  withState,
+  setDisplayName,
+  withHandlers,
+} from 'recompose';
 
 import Header from 'components/Header';
 
@@ -13,83 +18,67 @@ import { addTodo } from 'redux/data/todoList';
 
 import './styles.css';
 
-class App extends Component {
-  state = {
-    text: '',
-    filter: 'all',
-  };
+const App = ({
+  text,
+  todoList,
+  onAddTodoAction,
+  setText,
+  filter,
+  setFilter,
+  onSearchTodos,
+  onFilter,
+}) => {
+  const doneCount = todoList.filter(todo => todo.done).length;
+  const todoCount = todoList.length - doneCount;
+  const visibleTodos = onFilter(onSearchTodos(todoList, text), filter);
 
-  onSearchPanel = (text) => {
-    this.setState({ text });
-  };
-
-  searchTodos = (array, text) => {
-    if (text.length === 0) return array;
-    return array.filter(item => item.label.toLowerCase()
-      .indexOf(text) > -1);
-  };
-
-  filter = (array, filter) => {
-    switch (filter) {
-      case 'all':
-        return array;
-      case 'active':
-        return array.filter(item => !item.done);
-      case 'done':
-        return array.filter(item => item.done);
-      default:
-        return array;
-    }
-  };
-
-  onFilterChange = (filter) => {
-    this.setState({
-      filter,
-    });
-  };
-
-  render() {
-    const { text, filter } = this.state;
-    const {
-      todoList,
-      onAddTodoAction,
-    } = this.props;
-    const doneCount = todoList.filter(todo => todo.done).length;
-    const todoCount = todoList.length - doneCount;
-    const visibleTodos = this.filter(this.searchTodos(todoList, text), filter);
-
-    return (
-      <div className="root">
-        <Header toDo={todoCount} done={doneCount} />
-        <nav className="navbar navbar-light bg-light mb-3">
-          <div className="navbar-brand">
-            <SearchPanel onSearchTodos={text => this.onSearchPanel(text)} />
-          </div>
-          <div className="navbar-item">
-            <TodoStatusFilter
-              filter={filter}
-              onFilterChange={filter => this.onFilterChange(filter)}
-            />
-          </div>
-        </nav>
-        <TodoList items={visibleTodos} />
-        <TodoAddFrom onCreateTodo={label => onAddTodoAction(label)} />
-      </div>
-    );
-  }
-}
-
-const mapStateToProps = ({ data: { todoList } }) => ({ todoList });
-
-const mapDispatchToProps = dispatch => ({
-  onAddTodoAction(text) {
-    dispatch(addTodo(text));
-  },
-});
+  return (
+    <div className="root">
+      <Header toDo={todoCount} done={doneCount} />
+      <nav className="navbar navbar-light bg-light mb-3">
+        <div className="navbar-brand">
+          <SearchPanel onSearchTodos={text => setText(text)} />
+        </div>
+        <div className="navbar-item">
+          <TodoStatusFilter
+            filter={filter}
+            onFilterChange={filter => setFilter(filter)}
+          />
+        </div>
+      </nav>
+      <TodoList items={visibleTodos} />
+      <TodoAddFrom onCreateTodo={label => onAddTodoAction(label)} />
+    </div>
+  );
+};
 
 export default compose(
+  setDisplayName('App'),
   connect(
-    mapStateToProps,
-    mapDispatchToProps,
+    ({ data: { todoList } }) => ({ todoList }),
+    {
+      onAddTodoAction: text => addTodo(text),
+    },
   ),
+  withState('text', 'setText', ''),
+  withState('filter', 'setFilter', 'all'),
+  withHandlers({
+    onSearchTodos: () => (array, text) => {
+      if (text.length === 0) return array;
+      return array.filter(item => item.label.toLowerCase()
+        .indexOf(text) > -1);
+    },
+    onFilter: () => (array, filter) => {
+      switch (filter) {
+        case 'all':
+          return array;
+        case 'active':
+          return array.filter(item => !item.done);
+        case 'done':
+          return array.filter(item => item.done);
+        default:
+          return array;
+      }
+    },
+  }),
 )(App);
