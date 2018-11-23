@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const SearchPanel = ({
   onSearchTodos,
@@ -18,5 +19,9 @@ const SearchPanel = ({
     />
   </div>
 );
+
+SearchPanel.propTypes = {
+  onSearchTodos: PropTypes.func.isRequired,
+};
 
 export default SearchPanel;

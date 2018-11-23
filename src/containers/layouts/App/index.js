@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import {
   compose,
   withState,
@@ -50,6 +51,17 @@ const App = ({
       <TodoAddFrom onCreateTodo={label => onAddTodoAction(label)} />
     </div>
   );
+};
+
+App.propTypes = {
+  text: PropTypes.string.isRequired,
+  todoList: PropTypes.arrayOf(PropTypes.object).isRequired,
+  onAddTodoAction: PropTypes.func.isRequired,
+  setText: PropTypes.func.isRequired,
+  filter: PropTypes.string.isRequired,
+  setFilter: PropTypes.func.isRequired,
+  onSearchTodos: PropTypes.func.isRequired,
+  onFilter: PropTypes.func.isRequired,
 };
 
 export default compose(

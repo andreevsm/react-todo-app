@@ -5,6 +5,7 @@ import {
   pure,
   withHandlers,
 } from 'recompose';
+import PropTypes from 'prop-types';
 
 import './styles.css';
 
@@ -26,6 +27,12 @@ const TodoAddForm = ({
     </button>
   </form>
 );
+
+TodoAddForm.propTypes = {
+  label: PropTypes.string.isRequired,
+  setLabel: PropTypes.func.isRequired,
+  onSubmit: PropTypes.func.isRequired,
+};
 
 export default compose(
   pure,
