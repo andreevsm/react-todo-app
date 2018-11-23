@@ -10,15 +10,15 @@ const Header = ({
   <div className="header">
     <h1 className="header__title">My Todo list</h1>
     <div className="header__todo-info">
-      To do
-      {' '}
-      <span className="todo-info__count">{toDo}</span>
-      {' '}
-      Done
-      {' '}
-      <span className="todo-info__count">{done}</span>
+      <div className="todo-info__count">
+        To do
+        <span className="count">{toDo}</span>
+      </div>
+      <div className="todo-info__count">
+        Done
+        <span className="count">{done}</span>
+      </div>
     </div>
-
   </div>
 );
 

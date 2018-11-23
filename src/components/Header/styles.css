@@ -15,6 +15,14 @@
   margin: 0;
 }
 
-.todo-info__count {
+.count {
   color: #ccc;
+}
+
+.todo-info__count {
+  display: inline-block;
+}
+
+.todo-info__count:last-of-type {
+  margin-left: 10px;
 }
