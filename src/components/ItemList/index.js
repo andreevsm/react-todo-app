@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import Item from '../Item';
 
@@ -24,5 +25,12 @@ const ItemList = ({
     })}
   </ul>
 );
+
+ItemList.propTypes = {
+  items: PropTypes.arrayOf(PropTypes.object).isRequired,
+  onDeleteTodoAction: PropTypes.func.isRequired,
+  onToggleImportantTodo: PropTypes.func.isRequired,
+  onToggleDoneAction: PropTypes.func.isRequired,
+};
 
 export default ItemList;
