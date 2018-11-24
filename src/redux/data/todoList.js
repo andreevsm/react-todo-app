@@ -34,7 +34,7 @@ export const toggleImportantTodo = createAction('todoList/TOGGLE_IMPORTANT_TODO'
 export const toggleDoneTodo = createAction('todoList/TOGGLE_DONE_TODO');
 
 export default handleActions({
-  'todoList/ADD_TODO': (state, action) => [
+  [addTodo]: (state, action) => [
     ...state,
     {
       id: uid(),
@@ -43,8 +43,8 @@ export default handleActions({
       important: false,
     },
   ],
-  'todoList/REMOVE_TODO': (state, action) => state.filter(todo => todo.id !== action.payload),
-  'todoList/TOGGLE_IMPORTANT_TODO': (state, action) => {
+  [deleteTodo]: (state, action) => state.filter(todo => todo.id !== action.payload),
+  [toggleImportantTodo]: (state, action) => {
     const idx = state.findIndex(el => el.id === action.payload);
     const oldItem = state[idx];
     const newItem = {
@@ -58,7 +58,7 @@ export default handleActions({
       ...state.slice(idx + 1),
     ];
   },
-  'todoList/TOGGLE_DONE_TODO': (state, action) => {
+  [toggleDoneTodo]: (state, action) => {
     const idx = state.findIndex(el => el.id === action.payload);
     const oldItem = state[idx];
     const newItem = {
