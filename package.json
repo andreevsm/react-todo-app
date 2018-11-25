@@ -42,8 +42,8 @@
     "stylelint-config-standard": "^18.2.0"
   },
   "lint-staged": {
-    "*.js": "eslint src",
-    "*.@(scss|css)": "stylelint"
+    "*.js": "npm run lint",
+    "*.@(scss|css)": "npm run stylelint"
   },
   "config": {
     "ghooks": {
