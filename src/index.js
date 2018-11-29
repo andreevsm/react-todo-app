@@ -6,6 +6,8 @@ import App from 'containers/layouts/App';
 import { PersistGate } from 'redux-persist/lib/integration/react';
 import { persistor, store } from './store';
 
+import './styles.css';
+
 ReactDOM.render(
   <Provider store={store}>
     <PersistGate loading={<span>Loading...</span>} persistor={persistor}>
