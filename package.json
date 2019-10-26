@@ -2,7 +2,9 @@
   "name": "todo",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://andreevsm.github.io/react-todo-app/",
   "dependencies": {
+    "gh-pages": "^2.1.1",
     "prop-types": "^15.6.2",
     "react": "^16.6.0",
     "react-dom": "^16.6.0",
@@ -21,7 +23,9 @@
     "eject": "react-scripts eject",
     "lint": "eslint src",
     "stylelint": "stylelint src/**/*.css",
-    "hooks:commit": "lint-staged"
+    "hooks:commit": "lint-staged",
+    "predeploy": "yarn run build",
+    "deploy": "gh-pages -d build"
   },
   "browserslist": [
     ">0.2%",
