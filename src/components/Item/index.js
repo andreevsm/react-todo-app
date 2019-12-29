@@ -22,7 +22,7 @@ const Item = ({
   }
 
   return (
-    <React.Fragment>
+    <>
       <div className={classNames} onClick={onToggleDone} onKeyPress={onToggleDone}>
         {label}
       </div>
@@ -34,7 +34,7 @@ const Item = ({
           <i className="fa fa-exclamation" />
         </button>
       </div>
-    </React.Fragment>
+    </>
   );
 };
 

@@ -1,0 +1,37 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Header should be shown 1`] = `
+<div
+  className="header"
+>
+  <h1
+    className="header__title"
+  >
+    My Todo list
+  </h1>
+  <div
+    className="header__todo-info"
+  >
+    <div
+      className="todo-info__count"
+    >
+      To do
+      <span
+        className="count"
+      >
+        3
+      </span>
+    </div>
+    <div
+      className="todo-info__count"
+    >
+      Done
+      <span
+        className="count"
+      >
+        2
+      </span>
+    </div>
+  </div>
+</div>
+`;
